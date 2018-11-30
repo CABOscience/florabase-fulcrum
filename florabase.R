@@ -50,7 +50,8 @@ wa <- read.csv('records-2018-11-30-2.csv') %>%
          family = Family,
          genus = Genus,
          vernacularName = Vernacular.Name) %>% 
-  mutate(scientificName = paste(scientificName_short, recordedBy))
+  mutate(scientificName = paste(scientificName_short, recordedBy)) %>% 
+  dplyr::select(-Conservation, Invasive)
 
 # filter out those taxa already in taxon2
 wa.sub <- wa %>% 
@@ -62,4 +63,4 @@ nrow(wa.sub)
 
 # create csv for import into Fulcrum
 write.csv(wa.sub, file = 'wa_taxon_fulcrum.csv', row.names = F,
-          na = '', quote = F)
+          na = '', quote = T)
